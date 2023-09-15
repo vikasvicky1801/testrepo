@@ -11,20 +11,18 @@ This Terraform module creates an Azure Virtual Network (VNet) along with subnets
 - Supports easy customization of security rules based on your requirements.
 - Modular design for reusability across different Azure environments.
 
-## Usage
+## Example Usage
 
 ```hcl
-module "azure_vnet" {
-  source = "./azure_vnet_module"  # Replace with the actual path to the module directory
-
-  # Input variables
-  resource_group_name     = "my-resource-group"
-  vnet_name               = "my-vnet"
+module "network" {
+  source                  = "./modules/azure_vnet"
+  vnet_name               = "myvnet"
   address_space           = ["10.0.0.0/16"]
-  location                = "East US"
-  subnet_names            = ["subnet1", "subnet2"]
+  location                = "us-east-1"
+  resource_group_name     = "testrg"
+  subnet_names            = ["aks_subnet", "appgw_subnet"]
   subnet_address_prefixes = ["10.0.1.0/24", "10.0.2.0/24"]
-  nsg_name                = "my-nsg"
+  nsg_name                = "testnsg"
 
   inbound_rules = {
     rule1 = {
